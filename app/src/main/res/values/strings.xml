@@ -6,4 +6,9 @@
     <string name="label_de_stress">De-stress</string>
     <string name="label_relax">Relax</string>
     <string name="label_focus">Focus</string>
+    <string name="title_logout">Logout</string>
+    <string name="title_are_you_sure">Are you sure?</string>
+    <string name="text_logout">Logout</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="msg_succesfull_logout">Logged Out Successfully!</string>
 </resources>
