@@ -1,6 +1,5 @@
 package com.deepak.deepakmeditationapp.activities.main
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
