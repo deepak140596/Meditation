@@ -48,6 +48,13 @@ dependencies {
     implementation "com.airbnb.android:lottie:2.5.0"
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    // Music Player
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.10.3'
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.10.3'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.10.3'
+
+    // JCPlayer
+    implementation 'com.github.jeancsanchez:JcPlayer:2.6.16'
 
     // Testing
     testImplementation 'junit:junit:4.12'
