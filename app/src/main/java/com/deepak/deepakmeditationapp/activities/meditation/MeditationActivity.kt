@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.deepak.deepakmeditationapp.R
 import com.deepak.deepakmeditationapp.database.FirebaseRepository
-import com.deepak.deepakmeditationapp.database.SharedPreferenceDB
 import com.deepak.deepakmeditationapp.models.SessionItem
 import com.deepak.deepakmeditationapp.utils.ApplicationConstants
 import com.example.jean.jcplayer.model.JcAudio
@@ -20,8 +19,7 @@ class MeditationActivity : AppCompatActivity() {
 
     val TAG = "MEDI_ACTIVITY"
     lateinit var firebaseRepository : FirebaseRepository
-    var meditationType :String ?= ""
-    var restartMusic = true
+    var meditationType :String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +28,6 @@ class MeditationActivity : AppCompatActivity() {
         var bundle = intent.extras
         if(bundle != null){
             meditationType = bundle.getString(ApplicationConstants.MEDITATION_BUNDLE_KEY)
-        } else {
-            meditationType = SharedPreferenceDB.getMeditationType(this)
-            restartMusic = false
         }
 
         firebaseRepository = FirebaseRepository()
@@ -45,7 +40,7 @@ class MeditationActivity : AppCompatActivity() {
 
     }
 
-    fun observeMeditationType(meditationType : String?){
+    private fun observeMeditationType(meditationType : String?){
         firebaseRepository.getMeditationType(meditationType!!).observe(this, Observer { meditationItem ->
             if(meditationItem != null){
                 Toast.makeText(this,meditationItem.toString(),Toast.LENGTH_SHORT).show()
@@ -56,12 +51,8 @@ class MeditationActivity : AppCompatActivity() {
     private fun observeSessions(meditationType: String?){
         firebaseRepository.getSessions(meditationType!!).observe(this, Observer { sessions ->
             if(sessions.size != 0){
-                //Toast.makeText(this,sessions.size,Toast.LENGTH_SHORT).show()
-                Log.d(TAG,"SESSION_SIZE: ${sessions.size}")
 
-                if(restartMusic) {
-                    playMusic(sessions[0])
-                }
+                playMusic(sessions[0])
                 setupBackgroundImage(sessions[0])
 
                 if(meditation_progress_bar.isVisible){
@@ -73,14 +64,27 @@ class MeditationActivity : AppCompatActivity() {
 
     private fun playMusic(sessionItem: SessionItem){
         val audio = ArrayList<JcAudio>()
-        audio.add(JcAudio.createFromURL("Music",sessionItem.link))
+        audio.add(JcAudio.createFromURL("Music", sessionItem.link))
 
-        meditation_music_player_view.kill()
-        meditation_music_player_view.initPlaylist(audio,null)
+        meditation_music_player_view.initPlaylist(audio, null)
+    }
+
+    private fun setupBackgroundImage(sessionItem: SessionItem) {
+        Picasso.get().load(sessionItem.imageLink).into(meditation_image_view)
+    }
+
+    override fun onPause() {
+        super.onPause()
         meditation_music_player_view.createNotification()
     }
 
-    private fun setupBackgroundImage(sessionItem: SessionItem){
-        Picasso.get().load(sessionItem.imageLink).into(meditation_image_view)
+    override fun onStop() {
+        super.onStop()
+        meditation_music_player_view.createNotification()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        meditation_music_player_view.kill()
     }
 }
