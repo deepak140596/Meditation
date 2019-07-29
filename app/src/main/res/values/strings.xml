@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Deepak Meditation App</string>
     <string name="title_log_in">Log In</string>
+    <string name="label_calm_down">Calm Down</string>
+    <string name="label_meditation">Meditation</string>
+    <string name="label_de_stress">De-stress</string>
+    <string name="label_relax">Relax</string>
+    <string name="label_focus">Focus</string>
 </resources>

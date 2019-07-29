@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import com.deepak.deepakmeditationapp.R
 import android.content.Intent
-import com.deepak.deepakmeditationapp.MainActivity
 import com.deepak.deepakmeditationapp.activities.login.LoginActivity
 
 
