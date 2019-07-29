@@ -11,4 +11,5 @@
     <string name="text_logout">Logout</string>
     <string name="text_cancel">Cancel</string>
     <string name="msg_succesfull_logout">Logged Out Successfully!</string>
+    <string name="text_people_doing">People doing right now</string>
 </resources>
