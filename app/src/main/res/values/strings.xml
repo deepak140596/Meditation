@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Deepak Meditation App</string>
+    <string name="title_log_in">Log In</string>
 </resources>
